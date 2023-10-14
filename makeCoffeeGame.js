@@ -227,7 +227,7 @@ function makeCoffee() {
                 displayIncome.innerText = income;
 
                 let newOrderP = document.createElement("p");
-                let newOrderPTxt = document.createTextNode(`주문 : ${menuName} - ${menuAmount} 제조 완료되었습니다.`);
+                let newOrderPTxt = document.createTextNode(`완료 : ${menuName} - ${menuAmount} 제조 완료되었습니다.`);
                 newOrderP.appendChild(newOrderPTxt);
                 orderTable.appendChild(newOrderP);
             }
