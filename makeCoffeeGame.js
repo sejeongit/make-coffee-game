@@ -243,7 +243,7 @@ setInterval(() => {
             makeCoffee();
         }else{
             let alertP = document.createElement("p");
-            let alertPTxt = document.createTextNode("커피를 제조할 아르바이트생이 없습니다. 조금만 기다려주세요.");
+            let alertPTxt = document.createTextNode("커피를 제조할 아르바이트생이 없습니다. 아르바이트생을 고용해주세요.");
             alertP.appendChild(alertPTxt);
             orderTable.appendChild(alertP);
         }
