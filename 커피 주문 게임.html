@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>커피 주문 게임</title>
+
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+    <style>
+        html,body {
+            width:100%;
+            height:100%;
+            padding:0;
+            margin:0;
+        }
+
+        html,body * {
+            box-sizing: border-box;
+        }
+
+        #wrap {
+            width:100%;
+            height:100%;
+            background-color:rgb(116, 84, 72);
+            padding: 30px;
+        }
+
+        #wrap * {
+            margin:0;
+            font-family: 'Pretendard';
+            font-size: 14px;
+            font-weight:400;
+            color:#333;
+        }
+
+        #wrap section{ 
+            max-width: 800px;
+            margin:auto;
+        }
+
+        #wrap section:first-child {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        #wrap section:nth-child(2) {
+            margin-bottom: 40px;
+        }
+
+        #wrap .section-title {
+            height: 44px;
+            padding: 9px 16px;
+            background-color: #FAFAFA;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 500;
+            border: 2px solid burlywood;
+        }
+
+        #wrap .btn-wrap {
+            display: flex;
+        }
+
+        #wrap button {
+            display: block;
+            width: 120px;
+            height: 44px;
+            margin-right: 14px;
+            border:2px solid cornsilk;
+            border-radius:10px;
+            background-color: lightpink;
+            font-weight: 500;
+            color:#333;
+        }
+
+        #wrap .income-wrap * {
+            font-size:18px;
+            font-weight: 500;
+        }
+
+        #wrap .order-wrap {
+            height:350px;
+            padding:20px;
+            overflow-y:auto;
+            margin:auto;
+            background-color:rgb(21, 112, 62);
+            border:10px solid burlywood;
+            border-radius:10px;
+        }
+
+        #wrap .order-wrap::-webkit-scrollbar {
+            width:8px;
+            background-color:transparent;
+        }
+
+        #wrap .order-wrap::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            background-color: cornsilk;
+        }
+
+        #wrap .order-wrap p {
+            width:calc(100% - 8px);
+            margin-bottom: 8px;
+            color:white;
+        }
+
+        #wrap section:last-child > * {
+            margin-bottom: 26px;
+        }
+
+        #wrap .parttimer-wrap {
+            display: flex;
+        }
+
+        #wrap .parttimer {
+            display:flex;
+            flex-direction: column;
+            gap:12px;
+            width: 120px;
+            padding: 14px;
+            margin-right: 14px;
+            background-color: cornsilk;
+            border-radius: 10px;
+        }
+
+        #wrap .parttimer p {
+            font-weight: 500;
+        }
+
+        #wrap .parttimer .parttimer-name {
+            font-weight: 500;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <section>
+            <div class="btn-wrap">
+                <button class="order-btn">커피 주문</button>
+            </div>
+            <div class="section-title income-wrap">
+                <span>매상: </span><span class="income">0</span>
+            </div>
+        </section>
+        <section>
+            <div class="order-wrap">
+            </div>
+        </section>
+        <section>
+            <p class="section-title">아르바이트</p>
+            <div class="btn-wrap">
+                <button class="hire-btn">알바 고용</button>
+                <button class="fire-btn">알바 해고</button>
+            </div>
+            <div class="parttimer-wrap">
+                <!-- <div class="parttimer">
+                    <p class="parttimer-name">알바 <span class="parttimer-idx">2</span></p>
+                    <p class="parttimer-mode">상태 : <span class="parttimer-status">쉬고 있음</span></p>
+                    <p class="parttimer-skill">상태 : <span class="parttimer-time">1</span></p>
+                </div> -->
+            </div>
+        </section>
+    </div>
+</body>
+<script src="coffeeOrderGame.js"></script>
+</html>
