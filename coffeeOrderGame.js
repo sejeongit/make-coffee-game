@@ -69,21 +69,7 @@ let coffeeOrderSort = [
 
 
 // 아르바이트생 배열
-let partTimers = [
-    { 
-        face: '🙂',
-        // name: '알바1',
-        workingTime: 5,
-        status: '쉬고 있음' 
-    },
-    { 
-        face: '😁',
-        // name: '알바2',
-        workingTime: 10,
-        status: '쉬고 있음' 
-    }
-];
-
+let partTimers = [];
 let emojis = ['🙂','😀','😁','😆','😊','🤩','😐','😎'];
 
 let partTimerWrap = document.querySelector('.parttimer-wrap');
@@ -99,7 +85,6 @@ function makePartTimer(){
         partTimerWrap.insertAdjacentHTML('beforeend', `
             <div class="parttimer">
                 <div class="parttimer-pic">${item['face']}</div>
-                <p class="parttimer-name">알바 <span class="parttimer-idx">${idx+1}</span></p>
                 <p class="parttimer-mode">상태 : <span class="parttimer-status">${item['status']}</span></p>
                 <p class="parttimer-skill">제조시간 : <span class="parttimer-time">${item['workingTime']}</span></p>
             </div>
@@ -112,24 +97,15 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 
 // 알바 고용 버튼 클릭시
+let hireCount = 0;
 hireBtn.addEventListener('click', () => {
 
     let newPartTimer = {};
-
-    /*
-    // 생성시 알바1, 알바2.. 만드는 순서대로 이름+인덱스-1 지정
-    if(partTimers.length == 0){
-        newPartTimer['name'] = '알바' + 1;
-    }else {
-        let lastPTName = partTimers[partTimers.length - 1]['name'];
-        let lastPTIdx = Number(lastPTName.slice(2));
-        newPartTimer['name'] = '알바' + (lastPTIdx + 1);
-    }
-    */
-
+    hireCount++;
+    
     newPartTimer['face'] = emojis[Math.floor(Math.random() * emojis.length)];
     newPartTimer['workingTime'] = Math.floor(Math.random()*10 +1); // 최소값 1 최대값 10
-    newPartTimer['status'] = '쉬고 있음';
+    newPartTimer['status'] = '쉬는 중';
 
     partTimers.push(newPartTimer);
 
@@ -150,7 +126,7 @@ fireBtn.addEventListener('click', () => {
     let firePrompt = prompt("해고할 사람의 순서를 입력해주세요.", "");
     let firedPTIdx = Number(firePrompt);
 
-    let count = 0;
+    let fireCount = 0;
     /*
     // 입력한 이름의 알바 해고
     partTimers.forEach(function(item){
@@ -167,11 +143,11 @@ fireBtn.addEventListener('click', () => {
             if(firedPTIdx - 1 == i){
                 partTimers.splice(i, 1);
                 alert("해고되었습니다.");
-                count++;
-                console.log(partTimers);
+                fireCount++;
+                // console.log(partTimers);
             }
         }
-        if(count == 0){
+        if(fireCount == 0){
             alert("일치하는 사람이 없습니다.");
             return;
         }
@@ -191,7 +167,7 @@ let orderTable = document.querySelector('.order-wrap');
 orderBtn.addEventListener('click', () => {
 
     if(partTimers.length == 0){
-        alert('커피를 제조할 알바가 없습니다. 조금만 기다려주세요.');
+        alert('커피를 제조할 아르바이트생이 없습니다. 아르바이트생을 고용해주세요.');
         return;
     }
 
@@ -219,14 +195,15 @@ function makeCoffee() {
 
     partTimers.forEach((item, idx) => {
         console.log(1)
+
         // 알바가 일하지 않고있고 커피 주문이 1개 이상 존재할때
-        if(item['status'] == '쉬고 있음' && coffeeQueue.length > 0){
+        if(item['status'] == '쉬는 중' && coffeeQueue.length > 0){
 
             // 알바 상태 변경
             item['status'] = '일하는 중';
             let nowPartTimer = partTimerWrap.children[idx];
             // let nowPartTimerMode = nowPartTimer.getElementsByClassName('parttimer-mode'); // 안됨. HTMLCollection 반환
-            let nowPartTimerMode = nowPartTimer.children[2];
+            let nowPartTimerMode = nowPartTimer.children[1];
             nowPartTimerMode.innerHTML = `상태 : <span class="parttimer-status">${item['status']}</span>`;
             
 
@@ -244,13 +221,13 @@ function makeCoffee() {
                 // 만드는 시간동안 대기
                 await new Promise((resolve, reject) => setTimeout(resolve, makingTime));
 
-                item['status'] = '쉬고 있음';
+                item['status'] = '쉬는 중';
                 nowPartTimerMode.innerHTML = `상태 : <span class="parttimer-status">${item['status']}</span>`;
                 income += price;
                 displayIncome.innerText = income;
 
                 let newOrderP = document.createElement("p");
-                let newOrderPTxt = document.createTextNode(`알바 ${idx+1} : ${menuName} - ${menuAmount} 제조 완료되었습니다.`);
+                let newOrderPTxt = document.createTextNode(`주문 : ${menuName} - ${menuAmount} 제조 완료되었습니다.`);
                 newOrderP.appendChild(newOrderPTxt);
                 orderTable.appendChild(newOrderP);
             }
@@ -266,7 +243,7 @@ setInterval(() => {
             makeCoffee();
         }else{
             let alertP = document.createElement("p");
-            let alertPTxt = document.createTextNode("커피를 제조할 알바가 없습니다. 조금만 기다려주세요.");
+            let alertPTxt = document.createTextNode("커피를 제조할 아르바이트생이 없습니다. 조금만 기다려주세요.");
             alertP.appendChild(alertPTxt);
             orderTable.appendChild(alertP);
         }
