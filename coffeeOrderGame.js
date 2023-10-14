@@ -48,22 +48,22 @@ let coffeeOrderSort = [
         price: 7500 
     },
     { 
-        menu: 'Espresso',
+        menu: 'Frappe',
         amount: 'tall',
         makingTime: 100,
-        price: 4000 
+        price: 6000 
     },
     { 
-        menu: 'Espresso',
+        menu: 'Frappe',
         amount: 'grande',
         makingTime: 500,
-        price: 5000 
+        price: 7000 
     },
     { 
-        menu: 'Espresso',
+        menu: 'Frappe',
         amount: 'venti',
         makingTime: 1000,
-        price: 6000 
+        price: 8000 
     }
 ];
 
@@ -71,16 +71,20 @@ let coffeeOrderSort = [
 // 아르바이트생 배열
 let partTimers = [
     { 
+        face: '🙂',
         // name: '알바1',
         workingTime: 5,
         status: '쉬고 있음' 
     },
     { 
+        face: '😁',
         // name: '알바2',
         workingTime: 10,
         status: '쉬고 있음' 
     }
 ];
+
+let emojis = ['🙂','😀','😁','😆','😊','🤩','😐','😎'];
 
 let partTimerWrap = document.querySelector('.parttimer-wrap');
 let hireBtn = document.querySelector('.hire-btn');
@@ -94,9 +98,10 @@ function makePartTimer(){
     partTimers.forEach((item, idx) => {
         partTimerWrap.insertAdjacentHTML('beforeend', `
             <div class="parttimer">
+                <div class="parttimer-pic">${item['face']}</div>
                 <p class="parttimer-name">알바 <span class="parttimer-idx">${idx+1}</span></p>
                 <p class="parttimer-mode">상태 : <span class="parttimer-status">${item['status']}</span></p>
-                <p class="parttimer-skill">제조 시간 : <span class="parttimer-time">${item['workingTime']}</span></p>
+                <p class="parttimer-skill">제조시간 : <span class="parttimer-time">${item['workingTime']}</span></p>
             </div>
         `);
     });
@@ -122,6 +127,7 @@ hireBtn.addEventListener('click', () => {
     }
     */
 
+    newPartTimer['face'] = emojis[Math.floor(Math.random() * emojis.length)];
     newPartTimer['workingTime'] = Math.floor(Math.random()*10 +1); // 최소값 1 최대값 10
     newPartTimer['status'] = '쉬고 있음';
 
@@ -129,6 +135,8 @@ hireBtn.addEventListener('click', () => {
 
     // 새 알바 배열 화면에 집어넣기
     makePartTimer();
+
+    makeCoffee();
 });
 
 // 알바 해고 버튼 클릭시
@@ -216,13 +224,11 @@ function makeCoffee() {
 
             // 알바 상태 변경
             item['status'] = '일하는 중';
-            /*
             let nowPartTimer = partTimerWrap.children[idx];
             // let nowPartTimerMode = nowPartTimer.getElementsByClassName('parttimer-mode'); // 안됨. HTMLCollection 반환
-            let nowPartTimerMode = nowPartTimer.children[1];
-            nowPartTimerMode.innerText = item['status'];
-            */
-            makePartTimer();
+            let nowPartTimerMode = nowPartTimer.children[2];
+            nowPartTimerMode.innerHTML = `상태 : <span class="parttimer-status">${item['status']}</span>`;
+            
 
             async function finishMakeCoffee() {
 
@@ -239,8 +245,7 @@ function makeCoffee() {
                 await new Promise((resolve, reject) => setTimeout(resolve, makingTime));
 
                 item['status'] = '쉬고 있음';
-                // nowPartTimerMode.innerText = item['status'];
-                makePartTimer();
+                nowPartTimerMode.innerHTML = `상태 : <span class="parttimer-status">${item['status']}</span>`;
                 income += price;
                 displayIncome.innerText = income;
 
@@ -257,16 +262,13 @@ function makeCoffee() {
 
 setInterval(() => {
     if(coffeeQueue.length > 0){
-        switch(partTimers.length){
-            case 0:
-                let alertP = document.createElement("p");
-                let alertPTxt = document.createTextNode("커피를 제조할 알바가 없습니다. 조금만 기다려주세요.");
-                alertP.appendChild(alertPTxt);
-                orderTable.appendChild(alertP);
-                break;
-
-            default :
-                makeCoffee();
+        if(partTimers.length > 0){
+            makeCoffee();
+        }else{
+            let alertP = document.createElement("p");
+            let alertPTxt = document.createTextNode("커피를 제조할 알바가 없습니다. 조금만 기다려주세요.");
+            alertP.appendChild(alertPTxt);
+            orderTable.appendChild(alertP);
         }
     }
 }, 3000);

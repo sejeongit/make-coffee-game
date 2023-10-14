@@ -13,6 +13,7 @@
             height:100%;
             padding:0;
             margin:0;
+            background-color:rgb(116, 84, 72);
         }
 
         html,body * {
@@ -22,7 +23,6 @@
         #wrap {
             width:100%;
             height:100%;
-            background-color:rgb(116, 84, 72);
             padding: 30px;
         }
 
@@ -112,6 +112,9 @@
 
         #wrap .parttimer-wrap {
             display: flex;
+            flex-wrap: wrap;
+            gap:14px;
+            padding-bottom: 30px;
         }
 
         #wrap .parttimer {
@@ -120,13 +123,19 @@
             gap:12px;
             width: 120px;
             padding: 14px;
-            margin-right: 14px;
             background-color: cornsilk;
             border-radius: 10px;
         }
 
-        #wrap .parttimer p {
+        #wrap .parttimer * {
             font-weight: 500;
+        }
+
+        #wrap .parttimer .parttimer-pic {
+            background-color: white;
+            border-radius: 5px;
+            font-size: 28px;
+            text-align: center;
         }
 
         #wrap .parttimer .parttimer-name {
@@ -151,7 +160,6 @@
             </div>
         </section>
         <section>
-            <p class="section-title">아르바이트</p>
             <div class="btn-wrap">
                 <button class="hire-btn">알바 고용</button>
                 <button class="fire-btn">알바 해고</button>
@@ -160,7 +168,7 @@
                 <!-- <div class="parttimer">
                     <p class="parttimer-name">알바 <span class="parttimer-idx">2</span></p>
                     <p class="parttimer-mode">상태 : <span class="parttimer-status">쉬고 있음</span></p>
-                    <p class="parttimer-skill">상태 : <span class="parttimer-time">1</span></p>
+                    <p class="parttimer-skill">제조시간 : <span class="parttimer-time">1</span></p>
                 </div> -->
             </div>
         </section>
